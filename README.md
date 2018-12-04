@@ -1,5 +1,7 @@
 # PyPAI
 
+[](https://img.shields.io/badge/pypai-v1.0-green.svg)
+
 This is a python tool for Open Platform for AI.
 
 # Installation
