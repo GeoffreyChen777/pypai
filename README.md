@@ -1,10 +1,8 @@
 # PyPAI
 
 ![](https://img.shields.io/badge/pypai-v1.0-green.svg)
-
-![](https://img.shields.io/badge/Unix-pass-blue.svg）
-
-![](https://img.shields.io/badge/Windows-Failed-blue.svg）
+![](https://img.shields.io/badge/Unix-pass-blue.svg)
+![](https://img.shields.io/badge/Windows-Failed-blue.svg)
 
 This is a python tool for Open Platform for AI. Linux and MacOS are working fine. Windows are not supported now.
 
