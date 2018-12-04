@@ -10,6 +10,8 @@ This is a python tool for Open Platform for AI. Linux and MacOS are working fine
 
 # Demo
 
+1. Create and run `submit.py` in **your project folder** to generate the configuration:
+
 ```python
 from pypai import PAI
 
@@ -18,10 +20,22 @@ pai = PAI(username='xxx', passwd='xxx')
 
 # Generate the configuration
 pai.generate_config()
+```
 
-# Submit the job
+2. Open `pai_configuration.json` and modify it.
+
+3. Change and run `submit.py` to submit your job:
+
+```python
+from pypai import PAI
+
+# Create a PAI cluster
+pai = PAI(username='xxx', passwd='xxx')
+
+# Generate the configuration
 pai.submit()
 ```
+
 
 # API
 
