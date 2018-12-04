@@ -47,7 +47,7 @@ class PAI:
     username: (str) PAI username
     passwd: (str) PAI password
     url: (str) PAI master node IP
-    worker: (int) worker num for upload code
+    worker: (int) thread number for uploading code
     
 function generate_config:
     @paremeters:
