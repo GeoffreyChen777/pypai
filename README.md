@@ -2,7 +2,11 @@
 
 This is a python tool for Open Platform for AI.
 
-# Usage Demo
+# Installation
+
+`pip install pypai`
+
+# Demo
 
 ```python
 from pypai import PAI
