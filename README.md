@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/pypai-v1.0-green.svg)
 
-This is a python tool for Open Platform for AI.
+This is a python tool for Open Platform for AI. Linux and MacOS are working fine. Windows are not supported now.
 
 # Installation
 
