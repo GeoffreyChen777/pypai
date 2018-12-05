@@ -38,6 +38,8 @@ pai = PAI(username='xxx', passwd='xxx')
 pai.submit()
 ```
 
+All the code in your project folder will be uploaded and your job will be submitted to the PAI.
+
 
 # API
 
