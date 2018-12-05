@@ -34,7 +34,7 @@ from pypai import PAI
 # Create a PAI cluster
 pai = PAI(username='xxx', passwd='xxx')
 
-# Generate the configuration
+# Submit job
 pai.submit()
 ```
 
