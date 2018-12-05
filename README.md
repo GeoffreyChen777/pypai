@@ -24,7 +24,7 @@ pai = PAI(username='xxx', passwd='xxx')
 pai.generate_config()
 ```
 
-2. Open `pai_configuration.json` and modify it.
+2. Open `pai_configuration.json` and modify it，**The path of code dir MUST follows '/$PAI_DEFAULT_FS_URI/.../$PAI_USER_NAME~$PAI_JOB_NAME'. The default path is $PAI_DEFAULT_FS_URI/Users/$PAI_USER_NAME/$PAI_USER_NAME~$PAI_JOB_NAME**.
 
 3. Change and run `submit.py` to submit your job:
 
