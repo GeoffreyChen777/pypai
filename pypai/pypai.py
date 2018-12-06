@@ -5,6 +5,7 @@ import collections
 import os
 import threading
 import uuid
+from sys import platform
 
 
 class PAI(object):
@@ -62,7 +63,7 @@ class PAI(object):
             output = json.dumps(data, indent=4)
             writer.write(output)
 
-    def submit(self, config_path='./pai_configuration.json', dir_path='./', dest_dir='/Users/'):
+    def submit(self, config_path='./pai_configuration.json', dir_path='./', dest_dir='/Users/', exclude=[]):
         if not os.path.exists(config_path):
             print('Can not find the configuration of the job. Please run generate_json() to make the default job configuration!')
             exit()
@@ -72,8 +73,11 @@ class PAI(object):
                 config = json.load(reader, object_pairs_hook=collections.OrderedDict)
                 config['jobName'] = self.create_jobname(config['jobName'])
                 self.write_configuration(config_path, config)
-
-            self.upload(dir_path, os.path.join(dest_dir, self.username, self.username + '~' + config['jobName']))
+            if 'win' in platform:
+                job_dest_path = _process_path(os.path.join(dest_dir, self.username, self.username + '~' + config['jobName']))
+            else:
+                job_dest_path = os.path.join(dest_dir, self.username, self.username + '~' + config['jobName'])
+            self.upload(dir_path, job_dest_path, exclude)
 
             headers = {"Content-Type": "application/json",
                        "Authorization": "Bearer {}".format(self.token)}
@@ -91,13 +95,32 @@ class PAI(object):
         return new_name
 
     @staticmethod
-    def get_file_list(dir_path):
+    def judge_exclude(name, exclude):
+        return '.' + name.split('.')[-1] in exclude
+
+
+    def get_file_list(self, dir_path, exclude):
         file_list = []
         for p, d, fl in os.walk(dir_path):
             for f in fl:
+                if self.judge_exclude(f, exclude):
+                    continue
                 if p.startswith('./'):
                     p = p[2:]
                 file_list.append(os.path.join(p, f))
+        return file_list
+
+
+    def get_file_list_windows(self, dir_path, exclude):
+        file_list = []
+        for p, d, fl in os.walk(dir_path):
+            for f in fl:
+                if self.judge_exclude(f, exclude):
+                    continue
+                if p.startswith('./'):
+                    p = p[2:]
+                windows_path = _process_path(os.path.join(p, f))
+                file_list.append(windows_path)
         return file_list
 
     @staticmethod
@@ -108,13 +131,20 @@ class PAI(object):
     def upload_list(upload_func, hdfs, file_list, dest_dir):
         try:
             for src in file_list:
-                upload_func(hdfs, src, os.path.join(dest_dir, src))
+                if 'win' in platform:
+                    upload_list = _process_path(os.path.join(dest_dir, src))
+                else:
+                    upload_list = os.path.join(dest_dir, src)
+                upload_func(hdfs, src, upload_list)
         except Exception as e:
             print("Upload failed!")
             print(e)
 
-    def upload(self, dir_path, dest_dir):
-        file_list = self.get_file_list(dir_path)
+    def upload(self, dir_path, dest_dir, exclude):
+        if 'win' in platform:
+            file_list = self.get_file_list_windows(dir_path, exclude)
+        else:
+            file_list = self.get_file_list(dir_path, exclude)
         print("Uploading!")
         if len(file_list) < self.worker:
             self.upload_list(self.upload_func, self.hdfs, file_list, dest_dir)
@@ -131,3 +161,8 @@ class PAI(object):
             for t in threads:
                 t.start()
                 t.join()
+
+def _process_path(path):
+    path = path.split("\\")
+    path = '/'.join(path)
+    return path
