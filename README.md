@@ -64,4 +64,6 @@ function submit:
     @paremeters:
     config_path='./pai_configuration.json'
     dir_path='./'            code path
-    dest_dir='/Users/'       code root path in the hdfs
+    dest_dir='/Users/'       code root path in the hdf
+    exclude_file=[]          exclude file list
+    exclude_dir=[]           exclude dir list
