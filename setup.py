@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='pypai',
-      version='1.0',
+      version='1.3',
       description='The python tool for Open Platform for AI',
       long_description=long_description,
       long_description_content_type="text/markdown",
