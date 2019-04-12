@@ -1,6 +1,6 @@
 # PyPAI
 
-![](https://img.shields.io/badge/pypai-v1.1-green.svg)
+![](https://img.shields.io/badge/pypai-v1.3-green.svg)
 ![](https://img.shields.io/badge/Unix-pass-blue.svg)
 ![](https://img.shields.io/badge/Windows-pass-blue.svg)
 
